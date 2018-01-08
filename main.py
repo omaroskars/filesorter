@@ -1,4 +1,5 @@
 import os
+import pprint
 
 WORKING_DIR = os.getcwd()
 PATHS = {
@@ -7,22 +8,27 @@ PATHS = {
     'movies_path': ''
 }
 
-def create_media_dir(path):
-    print("Would you like to create the media directory under" + path)
-    userinput = input('yes/no: ')
-    if userinput == 'yes':
-        PATHS['media_path'] = path + '\Media'
-        os.makedirs(PATHS['media_path'])
-        print('Media file created successfully')
-
+def scan_tv_shows()
+    
 def create_directory(key, path, name):
-    print('Creating ' + name + ' under the path ' + path +'\\' + name)
-    PATHS[key] = path + '\\' + name
-    os.makedirs(PATHS[key])
-    print(name + ' created successfully')
+    print('Creating ' + name + ' under the path ' + os.path.join(path, name))
+    if os.path.isdir(path + '\\' + name) == True:
+            print(name + " folder aldready exists")
+            PATHS[key] = os.path.join(path, name)
+    else:
+        PATHS[key] = os.path.join(path, name)
+        os.makedirs(PATHS[key])
+        print(name + ' created successfully')
+    
+    print()
+
+def main():
+    create_directory('media_path', WORKING_DIR, 'Media')
+    create_directory('tv_shows_path', PATHS['media_path'], 'TV shows')
+    create_directory('movies_path', PATHS['media_path'], 'Movies')
+
+    pprint.pprint(PATHS)
 
 
-create_media_dir(WORKING_DIR)
-create_directory('tv_shows_path', PATHS['media_path'], 'TV shows')
-create_directory('movies_path', PATHS['media_path'], 'Movies')
+main()
 
